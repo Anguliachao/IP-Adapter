@@ -2,10 +2,11 @@
 # screen -S tile_control_exp1; 202.168.109.223
 MAX_STEPS=1000000
 LR=1e-5
-BS=4
+BS=8
 PROMPT_DROPOUT=0.05
 OUTPUT_DIR="controlnet/sd15_${BS}_${LR}_${MAX_STEPS}_dropout${PROMPT_DROPOUT}"
 MODEL_NAME="/cephFS/yangying/AIGC2024/stable-diffusion-webui/models/Stable-diffusion/stable-diffusion-v1-5"
+PROJECT_NAME="controlnet-exp2"
 
 mkdir -p $OUTPUT_DIR
 
@@ -26,14 +27,14 @@ CUDA_VISIBLE_DEVICES=1,2,3 accelerate launch --multi_gpu train_controlnet_tile.p
     --train_batch_size ${BS} \
     --resume_from_checkpoint latest \
     --mixed_precision "fp16" \
-    --tracker_project_name "controlnet" \
+    --tracker_project_name $PROJECT_NAME \
     --report_to wandb \
     --proportion_empty_prompts ${PROMPT_DROPOUT} \
+    --checkpointing_steps 1000 \
     --gradient_checkpointing \
-    --enable_xformers_memory_efficient_attention \
     --gradient_accumulation_steps 4 \
     --use_8bit_adam \
-    --checkpointing_steps 1000 \
+    # --enable_xformers_memory_efficient_attention \
     # --set_grads_to_none
     # --checkpoints_total_limit=1000 \
     # --max_train_samples=80000 \
