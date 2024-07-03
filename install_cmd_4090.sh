@@ -5,6 +5,7 @@ conda activate diffusers
 #install diffusers from source
 #cd /cephFS/yangying/AIGC2024
 git clone https://github.com/huggingface/diffusers
+#cd /cephFS/yangying/AIGC2024/diffusers
 pip install -e .
 cd /cephFS/yangying/AIGC2024/diffusers/examples/controlnet/
 
@@ -25,4 +26,4 @@ pip install bitsandbytes
 
 python -c "import wandb;import tensorboard; import accelerate;import torchvision; import triton; import xformers;import transformers"
 
-#
+#installed machine: 202.168.101.210, 202.168.101.119

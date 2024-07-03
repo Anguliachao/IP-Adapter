@@ -951,7 +951,8 @@ class LocalImageDataset(data.Dataset):
             elif self.control_type =='resize':
                 interpolation_type = random.choices(['lanczos', 'bilinear', 'bicubic','nearest'])[0]
                 interpolation_mode = resolve_interpolation_mode(interpolation_type)
-                scale = random.choices([1,2,4,8],weights=[0.1,0.3,0.3,0.3])[0]
+                # scale = random.choices([1,2,4,8],weights=[0.1,0.3,0.3,0.3])[0]
+                scale = random.choices([2,4],weights=[0.5,0.5])[0]
                 condition_resolution = int(self.image_size /scale)
                 condition_image = TF.resize(
                 TF.resize(image, (condition_resolution, condition_resolution), interpolation=interpolation_mode),
